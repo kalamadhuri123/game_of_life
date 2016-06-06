@@ -1,12 +1,14 @@
 allprojects  {
   apply plugin: 'maven'
+  apply plugin: "jacoco"
 
   group = 'com.wakaleo.gameoflife'
-version = '1.0-SNAPSHOT'
+version = myversion
 }
 
 subprojects {
   apply plugin: 'java'
+ 
   sourceCompatibility = 1.8
   targetCompatibility = 1.8
 
@@ -14,16 +16,56 @@ subprojects {
   repositories {
     mavenLocal()
     
-    maven { url "http://central" }
+    maven { url "http://localhost:8082/nexus/content/groups/public" }
   }
 
   configurations.all {
+}
+
+jacoco {
+    toolVersion = "0.7.6.201602180812"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+test {
+    jacoco {
+  
+        destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+        classDumpFile = file("$buildDir/jacoco/classpathdumps")
+    }
+}
+
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination "${buildDir}/jacocoHtml"
+    }
 }
   dependencies {
     testCompile group: 'junit', name: 'junit', version:'4.11'
     testCompile group: 'org.hamcrest', name: 'hamcrest-all', version:'1.1'
     testCompile group: 'org.mockito', name: 'mockito-all', version:'1.9.0'
 }
+uploadArchives {
+    repositories {
+       mavenDeployer {
+             
 
-  
+repository(url: "http://localhost:8082/nexus/content/repositories/releases") {
+             authentication(userName: "admin", password: "admin123")
 }
+             
+       }
+    }
+    }
+
+
+
+
+}
+
+
+
+
+
