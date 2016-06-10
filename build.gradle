@@ -52,7 +52,7 @@ uploadArchives {
        mavenDeployer {
              
 
-repository(url: "http://localhost:8082/nexus/content/repositories/releases") {
+repository(url: "http://localhost:8082/nexus/content/repositories/stagging") {
              authentication(userName: "admin", password: "admin123")
 }
              
