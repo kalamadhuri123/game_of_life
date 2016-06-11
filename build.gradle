@@ -3,7 +3,7 @@ allprojects  {
   apply plugin: "jacoco"
 
   group = 'com.wakaleo.gameoflife'
-version = myversion
+version = '1.2-SNAPSHOT'
 }
 
 subprojects {
