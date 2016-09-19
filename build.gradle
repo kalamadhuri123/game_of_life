@@ -1,9 +1,9 @@
 allprojects  {
   apply plugin: 'maven'
   apply plugin: "jacoco"
-
+  apply plugin: 'war'
   group = 'com.wakaleo.gameoflife'
-version = myversion
+version = '1.0.57' 
 }
 
 subprojects {
